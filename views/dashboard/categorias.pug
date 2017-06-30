@@ -1,0 +1,62 @@
+extends layout
+
+block content
+  br
+  div(class="row")
+    div(class="jumbotron")
+      h1 Categorías
+      button(class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarCategoria") Agregar
+  div(class="row")
+    div(class="col-md-10")
+      h2 Lista Categoria
+      table(class="table table-hover")
+        thead
+          tr
+            th Id
+            th Categoria
+            th Opciones
+        tbody(data-bind="foreach : categorias")
+          tr
+            td(data-bind="text: idCategoria")
+            td(data-bind="text: nombre")
+            td
+              div(class="btn-group")
+                button(data-bind="click: $root.cargar" data-toggle="modal" data-target="#modalEditarCategoria" class="btn btn-warning") Editar
+                button(data-bind="click: $root.eliminar" class="btn btn-danger") Eliminar
+
+  div(id="modalAgregarCategoria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel")
+    div(class="modal-dialog" role="document")
+      div(class="modal-content")
+        form(data-bind="submit: agregar")
+          div(class="modal-header")
+            button(type="button" class="close" data-dissmiss="modal" aria-label="Close")
+              span(aria-hidden="true")
+            h3(class="modal-title") Agregar Categoría
+          div(class="modal-body")
+            div(class="form-group")
+              label(for="inputNombre" class="control-label") Nombre
+              input(type="text" class="form-control" name="inputNombre" id="inputNombre" data-bind="value: categoria.nombre")
+            div(class="modal-footer")
+              button(type="button" class="btn btn-default" data-dissmiss="modal") Cerrar
+              button(type="submit" class="btn btn-primary") Guardar
+
+  div(id="modalEditarCategoria" data-bind="if: categoriaDetalle" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel")
+    div(class="modal-dialog" role="document")
+      div(class="modal-content")
+        form(data-bind="submit: editar")
+          div(class="modal-header")
+            button(type="button" class="close" data-dissmiss="modal" aria-label="Close")
+              span(aria-hidden="true")
+            h3(class="modal-title") Agregar Categoría
+          div(class="modal-body")
+            div(class="form-group")
+              label(for="inputNombre" class="control-label") Nombre
+              input(type="text" class="form-control" name="inputIdCategoria" id="inputIdCategoria" data-bind="value: categoriaDetalle().idCategoria")
+              input(type="text" class="form-control" name="inputNombre" id="inputNombre" data-bind="value: categoriaDetalle().nombre")
+            div(class="modal-footer")
+              button(type="button" class="btn btn-default" data-dissmiss="modal") Cerrar
+              button(type="submit" class="btn btn-primary") Guardar
+            
+  include footer
+  script(src="/javascripts/main.js")
+            

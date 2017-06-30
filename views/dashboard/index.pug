@@ -1,0 +1,94 @@
+extends layout
+
+block content
+  br
+  div(class="row")
+    div(class="jumbotron")
+      h1 Contactos
+      button(class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarContacto") Agregar
+  div(class="row")
+    div(class="col-md-10")
+      h2 Lista de Contactos
+      table(class="table table-hover")
+        thead
+          tr
+            th ID
+            th Nombre
+            th Apellido
+            th Telefono
+            th Correo
+            th Categoria
+            th Opciones
+        tbody(data-bind="foreach: contactos")
+          tr
+            td(data-bind="text: idContacto")
+            td(data-bind="text: nombre")
+            td(data-bind="text: apellido")            
+            td(data-bind="text: telefono")
+            td(data-bind="text: correo")
+            td(data-bind="text: categoria")
+            td
+              div(class="btn-group")
+                button(data-bind="click: $root.cargarContacto" data-toggle="modal" data-target="#modalEditarContacto" class="btn btn-warning") Editar
+                button(data-bind="click: $root.eliminarContacto" class="btn btn-danger") Eliminar
+            
+  div(id="modalAgregarContacto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel")
+    div(class="modal-dialog" role="document")
+      div(class="modal-content")
+        form(data-bind="submit: agregarContacto")
+          div(class="modal-header")
+            button(type="button" class="close" data-dissmiss="modal" aria-label="Close")
+              span(aria-hidden="true")
+            h3(class="modal-title") Agregar Contacto
+          div(class="modal-body")
+            div(class="form-group")
+              label(for="inputNombre" class="control-label") Nombre
+              input(type="text" class="form-control" name="inputNombre" id="inputNombre" data-bind="value: contacto.nombre")
+            div(class="form-group")
+              label(for="inputApellido" class="control-label") Apellido
+              input(type="text" class="form-control" name="inputApellido" id="inputApellido" data-bind="value: contacto.apellido")
+            div(class="form-group")
+              label(for="inputTelefono" class="control-label") Teléfono
+              input(type="text" class="form-control" name="inputTelefono" id="inputTelefono" data-bind="value: contacto.telefono")
+            div(class="form-group")
+              label(for="inputNombre" class="control-label") Correo
+              input(type="text" class="form-control" name="inputNombre" id="inputNombre" data-bind="value: contacto.correo")
+            div(class="form-group")
+              label(for="inputNombre" class="control-label") Categoría
+              select(class="form-control" data-bind="options: categorias, optionsText: 'nombre', value: contacto.idCategoria")
+            div(class="modal-footer")
+              button(type="button" class="btn btn-default" data-dissmiss="modal") Cerrar
+              button(type="submit" class="btn btn-primary") Guardar
+
+  div(id="modalEditarContacto" data-bind="if: contactoDetalle" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel")
+    div(class="modal-dialog" role="document")
+      div(class="modal-content")
+        form(data-bind="submit: agregarContacto")
+          div(class="modal-header")
+            button(type="button" class="close" data-dissmiss="modal" aria-label="Close")
+              span(aria-hidden="true")
+            h3(class="modal-title") Agregar Contacto
+          div(class="modal-body")
+            div(class="form-group")
+              label(for="inputNombre" class="control-label") Nombre
+              input(type="text" class="form-control" name="inputIdContacto" id="inputIdContacto" data-bind="value: contactoDetalle().idContacto")
+              input(type="text" class="form-control" name="inputNombre" id="inputNombre" data-bind="value: contactoDetalle().nombre")
+            div(class="form-group")
+              label(for="inputApellido" class="control-label") Apellido
+              input(type="text" class="form-control" name="inputApellido" id="inputApellido" data-bind="value: contactoDetalle().apellido")
+            div(class="form-group")
+              label(for="inputTelefono" class="control-label") Teléfono
+              input(type="text" class="form-control" name="inputTelefono" id="inputTelefono" data-bind="value: contactoDetalle().telefono")
+            div(class="form-group")
+              label(for="inputNombre" class="control-label") Correo
+              input(type="text" class="form-control" name="inputNombre" id="inputNombre" data-bind="value: contactoDetalle().correo")
+            div(class="form-group")
+              label(for="inputNombre" class="control-label") Categoría
+              select(class="form-control" data-bind="options: categorias, optionsText: 'nombre', value: contactoDetalle().idCategoria")
+            div(class="modal-footer")
+              button(type="button" class="btn btn-default" data-dissmiss="modal") Cerrar
+              button(type="submit" class="btn btn-primary") Guardar
+
+  include footer
+  script(src="/javascripts/main.js")
+            
